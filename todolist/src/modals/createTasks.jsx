@@ -1,7 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap'
 
-const createTasks = ({modal, toggle}) => {
+const CreateTasks = ({modal, toggle,save}) => {
+
+    const [taskName, setTaskName] = useState('')
+    const [description, setDescription] = useState('')
+
+
+    const handleChange = (i) => {
+        const {name, value} = i.target
+        if(name === "taskName"){
+            setTaskName(value)
+        }else{
+            setDescription(value)
+        }
+    }
+
+    const handleSave = () =>{
+
+        let taskObj = {}
+        taskObj["Name"] = taskName
+        taskObj["Description"] = description
+        save(taskObj)
+
+
+
+    }
     return (
         <div>
             <Modal isOpen={modal} toggle={toggle}>
@@ -10,18 +34,18 @@ const createTasks = ({modal, toggle}) => {
                     <form>
                         <div className="form-group p-2">
                             <label>Task Name</label>
-                            <input type= "text" className="form-control"></input>
+                            <input type= "text" className="form-control" value={taskName} onChange ={handleChange} name="taskName" />
                         </div>
                         <div className="form-group p-2">
                             <label>Description</label>
-                            <textarea rows="5" className="form-control">
+                            <textarea rows="5" className="form-control" value={description} onChange ={handleChange} name ="description">
 
                             </textarea>
                         </div>
                     </form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={toggle}>Done</Button>
+                    <Button color="primary" onClick={handleSave}>Done</Button>
                     <Button color='secondary' onClick={toggle}>Close</Button>
                 </ModalFooter>
             </Modal>
@@ -30,4 +54,4 @@ const createTasks = ({modal, toggle}) => {
 };
 
 
-export default createTasks;
+export default CreateTasks;

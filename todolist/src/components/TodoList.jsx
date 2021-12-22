@@ -1,12 +1,19 @@
 
 
 import React, {useState} from 'react';
-import CreateTask from '../modals/createTasks'
+import CreateTasks from '../modals/createTasks'
 
 const TodoList = () => {
     const [modal, setModal]= useState(false);
+    const [taskList, setTaskList]= useState([]);
     const toggle = () => {
         setModal(!modal);
+    }
+
+    const saveTasks = (obj) =>{
+        let list = taskList
+        list.push(obj);
+        setTaskList(list)
     }
     return (
         <div>
@@ -19,8 +26,10 @@ const TodoList = () => {
             <div className="container">
                 <div className="row">
                 <h4 className='p-4'> All tasks</h4>
+
+                
                 </div>
-                <CreateTask toggle = {toggle} modal = {modal}/>
+                <CreateTasks toggle = {toggle} modal = {modal} save ={saveTasks}/>
 
             </div>
            
